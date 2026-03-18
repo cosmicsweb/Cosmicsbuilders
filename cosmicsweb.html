@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmicsweb - Professional Website Development</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #0a0f2e;
+            --secondary-dark: #1a1f3d;
+            --accent-gold: #ffd700;
+            --accent-white: #ffffff;
+            --text-light: #e0e6ff;
+            --text-muted: #a0a8c0;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-light);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 15, 46, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            cursor: pointer;
+        }
+        section {
+            padding: 100px 0;
+        }
+        .hero {
+            text-align: center;
+            padding-top: 150px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="g" cx="50%" cy="50%"><stop offset="0%" stop-color="%23ffd700" stop-opacity="0.1"/><stop offset="100%" stop-color="%23000"/></radialGradient></defs><rect width="100%" height="100%" fill="url(%23g)"/><circle cx="200" cy="200" r="3" fill="%23ffd700" opacity="0.6"/><circle cx="800" cy="300" r="2" fill="%23ffd700" opacity="0.4"/><circle cx="100" cy="800" r="4" fill="%23ffd700" opacity="0.5"/></svg>') no-repeat center/cover;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--accent-gold), #ffed4a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--text-muted);
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--accent-gold), #ffed4a);
+            color: var(--primary-dark);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+        }
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.6);
+        }
+        .about {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--accent-white);
+        }
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .about-text h3 {
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+        .stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            display: block;
+        }
+        .services {
+            background: var(--primary-dark);
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .service-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.2);
+        }
+        .service-icon {
+            font-size: 3rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+        .contact {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        .contact-info h3 {
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+            margin-bottom: 2rem;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        .contact-item i {
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            width: 40px;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--accent-white);
+            font-weight: 500;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            color: var(--text-light);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+        }
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(45deg, var(--accent-gold), #ffed4a);
+            color: var(--primary-dark);
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+        .testimonials {
+            text-align: center;
+        }
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .testimonial {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            font-style: italic;
+        }
+        .testimonial-author {
+            margin-top: 1rem;
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+        footer {
+            background: var(--secondary-dark);
+            text-align: center;
+            padding: 3rem 0 1rem;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--text-light);
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        .social-links a:hover {
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--primary-dark);
+                flex-direction: column;
+                padding: 1rem;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .stats {
+                justify-content: center;
+            }
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .shape {
+            position: absolute;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+        .shape:nth-child(1) { width: 100px; height: 100px; top: 20%; left: 10%; animation-delay: 0s; }
+        .shape:nth-child(2) { width: 60px; height: 60px; top: 60%; right: 20%; animation-delay: 5s; }
+        .shape:nth-child(3) { width: 80px; height: 80px; bottom: 20%; left: 20%; animation-delay: 10s; }
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+            100% { transform: translateY(0px) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">Cosmicsweb</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <i class="fas fa-bars mobile-toggle"></i>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Transform Your Vision into Digital Reality</h1>
+            <p>Professional website development with over 4 years of expertise in custom web solutions, stunning UI/UX design, and full-stack development for businesses and individuals.</p>
+            <a href="#contact" class="cta-button">Get Your Free Consultation</a>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Cosmicsweb</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>4+ Years of Excellence in Web Development</h3>
+                    <p>We specialize in creating professional, high-performance websites that drive results. From custom web solutions to breathtaking UI/UX designs, we handle full-stack development with precision and creativity.</p>
+                    <p>Our mission is to empower businesses and individuals with digital presence that stands out in today's competitive landscape.</p>
+                    <div class="stats">
+                        <div class="stat">
+                            <span class="stat-number">4+</span>
+                            Years Experience
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">100+</span>
+                            Projects Delivered
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">99%</span>
+                            Client Satisfaction
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <i class="fas fa-rocket" style="font-size: 15rem; color: rgba(255, 215, 0, 0.1);"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>Website Design & Development</h3>
+                    <p>Custom, modern websites built with cutting-edge technologies and pixel-perfect design.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3>E-commerce Solutions</h3>
+                    <p>Complete online store development with secure payment gateways and inventory management.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Responsive & Mobile-First</h3>
+                    <p>Perfectly optimized websites that look stunning on every device and screen size.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Maintenance & Support</h3>
+                    <p>Ongoing support, updates, and maintenance to keep your website running smoothly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Clients Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial">
+                    "Cosmicsweb transformed our outdated website into a modern masterpiece. Our sales increased by 300% within 3 months!"
+                    <div class="testimonial-author">- TechStartup CEO</div>
+                </div>
+                <div class="testimonial">
+                    "Exceptional service and attention to detail. They delivered exactly what we envisioned and more."
+                    <div class="testimonial-author">- E-commerce Owner</div>
+                </div>
+                <div class="testimonial">
+                    "Professional team with great communication. Our new website is mobile-friendly and lightning fast!"
+                    <div class="testimonial-author">- Local Business</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get Your Free Consultation</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Ready to Start Your Project?</h3>
+                    <p style="margin-bottom: 2rem; color: var(--text-muted);">Submit your project details through the form below or email us directly at <strong>cosmicscart@gmail.com</strong>. Please include your mobile number or email for quick follow-up.</p>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div
